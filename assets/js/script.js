@@ -11,17 +11,19 @@
 // THEN I am again presented with current and future conditions for that city
 
 // declare all variables 
+var apiKey = "311ffd901dcf798ae2fbc6d7d4ce62de";
 var searchInput = document.querySelector("#search-input");
 var submitBtn = document.querySelector("submit-btn");
 
 var forecast1 = document.querySelector('#forecast1');
-var forecast2 = document.querySelector('forecast2');
-var forecast3 = document.querySelector('forecast3');
-var forecast4 = document.querySelector('forecast4');
-var forecast5 = document.querySelector('forecast5');
+var forecast2 = document.querySelector('#forecast2');
+var forecast3 = document.querySelector('#forecast3');
+var forecast4 = document.querySelector('#forecast4');
+var forecast5 = document.querySelector('#forecast5');
 
-function start() {
+function startApi() {
   // function for local storage 
+  localStorage.setItem();
   // if cities are saved, display list of cities 
 }
 
@@ -32,10 +34,11 @@ submit.addEventListener("click", function(event) {
 
  
 });
-start()
+startApi()
 
 // API fetch method 
-var requestURL = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`;
+// can this be template literal??
+var requestURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
 
 fetch(requestURL)
 .then(function(response) {
@@ -43,9 +46,22 @@ fetch(requestURL)
 })
 .then(function (data) {
    console.log(data);
-  });
+  }
   // do we want a catch error method?
+  .catch(err => console.error(err)
+  ));
+  
+// API for GeoCoding URL 
+// can this be template literal??
+var getGeocode = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=5&appid=311ffd901dcf798ae2fbc6d7d4ce62de`;
 
+fetch(getGeocode)
+.then(function(response) {
+  return response.json();
+})
+.then(function (geodata) {
+   console.log(geodata);
+  });
 
 /* 
 function handleSearchFormSubmit(event) {
