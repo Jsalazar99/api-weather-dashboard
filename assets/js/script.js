@@ -112,17 +112,10 @@ submitBtn.addEventListener("click", function (event) {
   createBtn.setAttribute("class", "city-btn");
   var BtnList = document.querySelector("#btn-list");
   BtnList.appendChild(createBtn);
-  createBtn.textContent = localStorage.getItem(history);
+  createBtn.textContent = `${localStorage.getItem("history")}`;
 
   startApi()
 
 });
 
-
-
-// add event listener to create buttons element?
-var newBtn = document.createElement('button');
-
-// populate info for each 5-day forecast 
-var addForecastInfo = document.createElement('p');
 
