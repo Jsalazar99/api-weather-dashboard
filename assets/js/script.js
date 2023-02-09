@@ -28,10 +28,11 @@ function renderCurrent(weather) {
   console.log(weather);
   cityName.textContent = weather.city.name;
   dateEl.textContent = `${weather.list[0].dt_txt}`;
+  // var formattedDateEl = dateEl.toLocaleDateString();
 
   condEl.setAttribute("src", `http://openweathermap.org/img/wn/${weather.list[0].weather[0].icon}.png`);
   tempEl.textContent = `Temp: ${weather.list[0].main.temp}°F`;
-  windEl.textContent = `Wind: ${weather.list[0].wind.speed}MPH`;
+  windEl.textContent = `Wind: ${weather.list[0].wind.speed} MPH`;
   humidEl.textContent = `Humidity: ${weather.list[0].main.humidity}%`;
 }
 // get info for 5-day forecast 
@@ -47,6 +48,9 @@ function renderForecast(weather) {
     var card = document.createElement("div");
     var dateCard = document.createElement("p");
     var icon = document.createElement("img");
+    var tempCard = document.createElement("p");
+    var windCard = document.createElement("p");
+    var humidCard = document.createElement("p");
 
     card.setAttribute("class", "days");
     dateCard.textContent = formattedDate;
@@ -54,6 +58,18 @@ function renderForecast(weather) {
     forecast.appendChild(card);
     card.appendChild(dateCard);
     dateCard.append(icon);
+
+    tempCard.setAttribute("class", "temp");
+    tempCard.textContent = `Temp: ${weather.list[index].main.temp}°F`;
+    dateCard.append(tempCard);
+    
+    windCard.setAttribute("class", "wind");
+    windCard.textContent = `Wind: ${weather.list[index].wind.speed} MPH`;
+    dateCard.append(windCard);
+    
+    humidCard.setAttribute("class", "humid");
+    humidCard.textContent = `Humidity: ${weather.list[index].main.humidity}%`;
+    dateCard.append(humidCard);
   }
 }
 // save cities to local storage, display list of cities 
