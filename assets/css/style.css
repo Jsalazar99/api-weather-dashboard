@@ -33,6 +33,7 @@ aside button {
   color: #111;
   width: 100%;
   margin: 5px;
+  padding: 5px;
   border-radius: 5px;
   border: none;
 }
@@ -42,7 +43,7 @@ aside button {
 }
 .display {
   border: 1px solid #333;
-  max-height: 180px;
+  max-height: 250px;
   margin: 1em 0;
 }
 .forecast {
