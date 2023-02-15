@@ -37,10 +37,12 @@ function renderCurrent(weather) {
 }
 // get info for 5-day forecast 
 function renderForecast(weather) {
-  forecast.textContent = "";
+  forecast.textContent = "";  // this clears out the forecast info 
 
   for (let index = 0; index < weather.list.length; index = index + 8) {
     //const element = array[index];
+
+    // formats the date so its readable 
     var date = new Date(weather.list[index].dt * 1000);
     var formattedDate = date.toLocaleDateString();
     console.log(weather.list[index]);
@@ -52,6 +54,7 @@ function renderForecast(weather) {
     var windCard = document.createElement("p");
     var humidCard = document.createElement("p");
 
+    // create 5 day forecast cards 
     card.setAttribute("class", "days");
     dateCard.textContent = formattedDate;
     icon.setAttribute("src", `http://openweathermap.org/img/wn/${weather.list[index].weather[0].icon}.png`);
@@ -77,6 +80,8 @@ function saveCity() {
   var cityHistory = JSON.parse(localStorage.getItem("history")) || [];
   cityHistory.push(searchInput.value);
   localStorage.setItem("history", JSON.stringify(cityHistory));
+
+  
 
 }
 // start Fetch API request 
@@ -108,11 +113,19 @@ submitBtn.addEventListener("click", function (event) {
     return;
   }
   // create button to display list of cities in local storage 
-  var createBtn = document.createElement("button");
+  for (let index = 0; index < cityHistory; index++) {
+   //const element = cityHistory[index];
+  const createBtn = document.createElement("button");
   createBtn.setAttribute("class", "city-btn");
   var BtnList = document.querySelector("#btn-list");
   BtnList.appendChild(createBtn);
-  createBtn.textContent = `${localStorage.getItem("history")}`;
+  var cityHistory = JSON.parse(localStorage.getItem("history"));
+  
+  // cityHistory - not logging?
+  console.log(cityHistory);
+  createBtn.textContent = cityHistory;
+  
+}
 
   startApi()
 
