@@ -22,6 +22,8 @@ var windEl = document.querySelector('.wind');
 var humidEl = document.querySelector('.humid');
 
 var forecast = document.querySelector('.forecast');
+var btnList = document.querySelector("#btn-list");
+var cityHistory = JSON.parse(localStorage.getItem("history")) || [];
 
 // push text info to display div 
 function renderCurrent(weather) {
@@ -77,11 +79,15 @@ function renderForecast(weather) {
 }
 // save cities to local storage, display list of cities 
 function saveCity() {
-  var cityHistory = JSON.parse(localStorage.getItem("history")) || [];
+  
   cityHistory.push(searchInput.value);
   localStorage.setItem("history", JSON.stringify(cityHistory));
 
-  
+  var createBtn = document.createElement("button");
+  createBtn.setAttribute("class", "city-btn");
+  createBtn.textContent = searchInput.value;
+  var BtnList = document.querySelector("#btn-list");
+  BtnList.appendChild(createBtn);
 
 }
 // start Fetch API request 
@@ -113,19 +119,21 @@ submitBtn.addEventListener("click", function (event) {
     return;
   }
   // create button to display list of cities in local storage 
-  for (let index = 0; index < cityHistory; index++) {
+  
+  /*for (let index = 0; index < cityHistory; index++) {
    //const element = cityHistory[index];
-  const createBtn = document.createElement("button");
+
+   const createBtn = document.createElement("button");
   createBtn.setAttribute("class", "city-btn");
   var BtnList = document.querySelector("#btn-list");
-  BtnList.appendChild(createBtn);
+  BtnList.appendChild(createBtn); 
   var cityHistory = JSON.parse(localStorage.getItem("history"));
   
   // cityHistory - not logging?
   console.log(cityHistory);
   createBtn.textContent = cityHistory;
   
-}
+} */
 
   startApi()
 
