@@ -1,13 +1,4 @@
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the the wind speed
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-
+/* API weather dashboard application */
 // declare all variables 
 var apiKey = "311ffd901dcf798ae2fbc6d7d4ce62de";
 var searchInput = document.querySelector("#search-input");
@@ -30,7 +21,6 @@ function renderCurrent(weather) {
   console.log(weather);
   cityName.textContent = weather.city.name;
   dateEl.textContent = `${weather.list[0].dt_txt}`;
-  // var formattedDateEl = dateEl.toLocaleDateString();
 
   condEl.setAttribute("src", `http://openweathermap.org/img/wn/${weather.list[0].weather[0].icon}.png`);
   tempEl.textContent = `Temp: ${weather.list[0].main.temp}°F`;
@@ -39,7 +29,7 @@ function renderCurrent(weather) {
 }
 // get info for 5-day forecast 
 function renderForecast(weather) {
-  forecast.textContent = "";  // this clears out the forecast info 
+  forecast.textContent = "";  // <-- this clears out the forecast info 
 
   for (let index = 0; index < weather.list.length; index = index + 8) {
     //const element = array[index];
@@ -79,16 +69,15 @@ function renderForecast(weather) {
 }
 // save cities to local storage, display list of cities 
 function saveCity() {
-  
   cityHistory.push(searchInput.value);
   localStorage.setItem("history", JSON.stringify(cityHistory));
 
+  // create buttons dynamically 
   var createBtn = document.createElement("button");
   createBtn.setAttribute("class", "city-btn");
   createBtn.textContent = searchInput.value;
   var BtnList = document.querySelector("#btn-list");
   BtnList.appendChild(createBtn);
-
 }
 // start Fetch API request 
 function startApi() {
@@ -108,7 +97,6 @@ function startApi() {
     .catch(err => console.error(err)
     );
 }
-
 // event listener goes here for click 
 submitBtn.addEventListener("click", function (event) {
   // prevent default for form input 
@@ -118,25 +106,6 @@ submitBtn.addEventListener("click", function (event) {
     alert('You need a search input value!');
     return;
   }
-  // create button to display list of cities in local storage 
-  
-  /*for (let index = 0; index < cityHistory; index++) {
-   //const element = cityHistory[index];
-
-   const createBtn = document.createElement("button");
-  createBtn.setAttribute("class", "city-btn");
-  var BtnList = document.querySelector("#btn-list");
-  BtnList.appendChild(createBtn); 
-  var cityHistory = JSON.parse(localStorage.getItem("history"));
-  
-  // cityHistory - not logging?
-  console.log(cityHistory);
-  createBtn.textContent = cityHistory;
-  
-} */
-
   startApi()
 
 });
-
-
